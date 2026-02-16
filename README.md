@@ -2,6 +2,29 @@
 
 Projeto para análise de desligamentos/perturbações com base em sinais elétricos.
 
+## Rodar no VSCode (Windows)
+
+**Sim, agora tem arquivo pronto para isso.**
+
+- Arquivo de execução: `run_windows.py`
+- Configuração do VSCode: `.vscode/launch.json`
+
+### Como usar no VSCode
+
+1. Abra a pasta do projeto no VSCode.
+2. Vá em **Run and Debug**.
+3. Escolha uma configuração:
+   - `COMTRADE Offline (Windows/VSCode)`
+   - `COMTRADE Web (Streamlit)`
+4. Pressione **F5**.
+
+### Observações
+
+- **Offline**: não precisa instalar bibliotecas externas, mas requer um CSV (ex.: `exemplo.csv`).
+- **Web**: precisa instalar dependências (`pip install -r requirements.txt`).
+
+---
+
 ## Consigo rodar no terminal do Windows?
 
 **Sim.** Você consegue rodar tanto no modo web quanto no modo offline.
@@ -13,7 +36,7 @@ Projeto para análise de desligamentos/perturbações com base em sinais elétri
 ### Windows (PowerShell) — modo offline (recomendado sem internet)
 
 ```powershell
-python .\offline_cli.py --csv .\exemplo.csv --voltage VA VB VC --current IA IB IC --line-km 120 --kv 230 --z1 0.38
+python .\run_windows.py --mode offline --csv .\exemplo.csv --voltage VA VB VC --current IA IB IC --line-km 120 --kv 230 --z1 0.38
 ```
 
 ### Windows (PowerShell) — modo web
@@ -22,7 +45,7 @@ python .\offline_cli.py --csv .\exemplo.csv --voltage VA VB VC --current IA IB I
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-streamlit run app.py
+python .\run_windows.py --mode web
 ```
 
 ### Windows (CMD) — modo web
@@ -31,10 +54,10 @@ streamlit run app.py
 python -m venv .venv
 .venv\Scripts\activate.bat
 pip install -r requirements.txt
-streamlit run app.py
+python .\run_windows.py --mode web
 ```
 
-> Se estiver sem internet, use o modo offline (`offline_cli.py`) que não depende de bibliotecas externas.
+> Se estiver sem internet, use o modo offline (`run_windows.py --mode offline`) que não depende de bibliotecas externas.
 
 ---
 
