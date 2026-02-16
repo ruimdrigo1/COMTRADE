@@ -17,6 +17,7 @@ from src.comtrade_analyzer import (
     estimate_fault_distance_km,
     summarize_signal_metrics,
 )
+from src.comtrade_encoding import write_cfg_as_utf8
 
 st.set_page_config(page_title="COMTRADE Disturbance Analyzer", layout="wide")
 st.title("Leitor COMTRADE + Análise de Desligamento/Perturbações")
@@ -49,7 +50,8 @@ if cfg_file and dat_file:
     with tempfile.TemporaryDirectory() as tmpdir:
         cfg_path = Path(tmpdir) / cfg_file.name
         dat_path = Path(tmpdir) / dat_file.name
-        cfg_path.write_bytes(cfg_file.read())
+        cfg_bytes = cfg_file.read()
+        used_encoding = write_cfg_as_utf8(cfg_bytes, str(cfg_path))
         dat_path.write_bytes(dat_file.read())
 
         rec = Comtrade()
@@ -60,7 +62,10 @@ if cfg_file and dat_file:
         analog_data = {label: np.array(values, dtype=float) for label, values in zip(analog_labels, rec.analog)}
         df = pd.DataFrame({"time": time, **analog_data})
 
-        st.success(f"Registro carregado com {len(df)} amostras e {len(analog_labels)} canais analógicos.")
+        st.success(
+            f"Registro carregado com {len(df)} amostras e {len(analog_labels)} canais analógicos. "
+            f"Encoding do CFG: {used_encoding}"
+        )
 
         default_voltage = [c for c in analog_labels if c.upper().startswith("V")]
         default_current = [c for c in analog_labels if c.upper().startswith("I")]

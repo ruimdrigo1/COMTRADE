@@ -2,6 +2,23 @@
 
 Projeto para análise de desligamentos/perturbações com base em sinais elétricos.
 
+
+## Suporte a encoding em arquivos COMTRADE (.cfg)
+
+Para evitar erro como:
+
+`UnicodeDecodeError: 'utf-8' codec can't decode byte ...`
+
+O projeto agora faz:
+
+- tentativa de detecção automática de encoding (quando `chardet` estiver disponível);
+- fallback seguro para `utf-8`, `cp1252` e `latin-1`;
+- regravação do `.cfg` em UTF-8 antes de chamar `rec.load(...)`.
+
+Isso permite ler arquivos COMTRADE legados em diferentes encodings no Windows e outros ambientes.
+
+---
+
 ## Rodar no VSCode (Windows)
 
 **Sim, agora tem arquivo pronto para isso.**
