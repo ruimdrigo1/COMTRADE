@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "COMTRADE Offline (Windows/VSCode)",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_windows.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--mode",
+        "offline",
+        "--csv",
+        "${workspaceFolder}/exemplo.csv"
+      ]
+    },
+    {
+      "name": "COMTRADE Web (Streamlit)",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_windows.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--mode",
+        "web"
+      ]
+    }
+  ]
+}
